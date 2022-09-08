@@ -16,11 +16,13 @@ public class WebSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     // @formatter:off
     http
-          .authorizeHttpRequests(
-            (authorize) -> authorize.anyRequest().authenticated()
-          )
-          .httpBasic(withDefaults());
-    return http.build();
+    .authorizeHttpRequests((requests) -> requests
+      .antMatchers("/greeting").permitAll()
+      .anyRequest().authenticated()
+    )
+    .httpBasic(withDefaults());
+
+  return http.build();
   }
 
 }
